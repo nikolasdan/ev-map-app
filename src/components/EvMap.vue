@@ -4,21 +4,22 @@ import axios from 'axios';
 import gmapTheme from './gmapTheme.json';
 
 const center = ref({ lat: 47.14769614452696, lng: 27.58352623143465 });
-const markers = ref([
-  ]);
+
+const markers = ref([]);
+
 const mapOptions = {
   styles: gmapTheme
 }
+
 const modalData = ref({});
+
 const modalOpen = ref(false);
 
 const openModal = (marker) => {
-  console.log('Marker clicked:', marker);
   modalData.value = marker;
   modalOpen.value = true;
 };
 
-// Function to close modal
 const closeModal = () => {
   modalOpen.value = false;
 };
@@ -41,7 +42,6 @@ onMounted(async () => {
         power: item.chargers_guns[0].kw_power,
         unit: item.chargers_guns[0].unit,
         is_fast: item.chargers_guns[0].is_fast ? "Fast" : "Slow",
-
       };
 
       if (item.chargers_guns[1] !== undefined) {
@@ -52,7 +52,7 @@ onMounted(async () => {
       }
 
       return marker;
-      
+
     });
 
     markers.value = parsedMarkers;
@@ -64,37 +64,31 @@ onMounted(async () => {
 </script>
 
 <template>
-  <GMapMap :center="center" :zoom="7" style="height : 100%; width : 100%; top : 0; left : 0; position : absolute; z-index : ;" :options="mapOptions">
-    <GMapMarker
-      v-for="(marker, index) in markers"
-      :key="index"
-      :position="marker.position"
-      :icon="'https://app.gocharge.tech/icons/gmap_pin_available.png'"
-      @click="openModal(marker)"
-    >
+  <GMapMap :center="center" :zoom="7"
+    style="height : 100%; width : 100%; top : 0; left : 0; position : absolute; z-index : ;" :options="mapOptions">
+    <GMapMarker v-for="(marker, index) in markers" :key="index" :position="marker.position"
+      :icon="'https://app.gocharge.tech/icons/gmap_pin_available.png'" @click="openModal(marker)">
     </GMapMarker>
   </GMapMap>
   <div class="modal" v-if="modalOpen">
-      <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
-        <h2 class="modal-info">{{ modalData.info }}</h2>
-        <p class="modal-address">Address: {{ modalData.full_address }}</p>
-        <p class="modal-max-power">Max Power: {{ modalData.max_power + " " + modalData.unit }}</p>
-        <p class="modal-price">Price per KW: {{ modalData.price_per_kw + " " + modalData.currency }}</p>
-        <p class="modal-status">Status: {{ modalData.status }}</p>
+    <div class="modal-content">
+      <span class="close" @click="closeModal">&times;</span>
+      <h2 class="modal-info">{{ modalData.info }}</h2>
+      <p class="modal-address">Address: {{ modalData.full_address }}</p>
+      <p class="modal-max-power">Max Power: {{ modalData.max_power + " " + modalData.unit }}</p>
+      <p class="modal-price">Price per KW: {{ modalData.price_per_kw + " " + modalData.currency }}</p>
+      <p class="modal-status">Status: {{ modalData.status }}</p>
 
-        <p class="modal-charger-type">Type: {{ modalData.charger_type }}</p>
-        <p class="modal-power">Power: {{ modalData.power + " " + modalData.unit }} {{ modalData.is_fast }}</p>
-
-        <p v-if="modalData.charger_type_two" class="modal-charger-two">Type: {{ modalData.charger_type_two }}</p>
-        <p v-if="modalData.power_two && modalData.unit_two && modalData.is_fast_two" class="modal-power-two">Power: {{ modalData.power_two + " " + modalData.unit }} {{ modalData.is_fast_two }}</p> 
-
-      </div>
+      <p class="modal-charger-type">Type: {{ modalData.charger_type }}</p>
+      <p class="modal-power">Power: {{ modalData.power + " " + modalData.unit }} {{ modalData.is_fast }}</p>
+      <p v-if="modalData.charger_type_two" class="modal-charger-two">Type: {{ modalData.charger_type_two }}</p>
+      <p v-if="modalData.power_two && modalData.unit_two && modalData.is_fast_two" class="modal-power-two">Power: {{
+        modalData.power_two + " " + modalData.unit }} {{ modalData.is_fast_two }}</p>
     </div>
+  </div>
 </template>
 
 <style scoped>
-
 .modal {
   display: block;
   position: fixed;
@@ -104,7 +98,7 @@ onMounted(async () => {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(2px);
 }
 
@@ -130,14 +124,11 @@ p {
   border-radius: 13px;
 }
 
-/* Responsive modal for table and mobile */
-
 @media (max-width: 768px) {
   .modal-content {
     width: 80%;
   }
 }
-
 
 .close {
   color: #aaa;
