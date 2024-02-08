@@ -8,7 +8,9 @@ const center = ref({ lat: 47.14769614452696, lng: 27.58352623143465 });
 const markers = ref([]);
 
 const mapOptions = {
-  styles: gmapTheme
+  styles: gmapTheme,
+  streetViewControl: false,
+  mapTypeControl: false
 }
 
 const modalData = ref({});
