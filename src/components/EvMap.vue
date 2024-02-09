@@ -67,7 +67,7 @@ onMounted(async () => {
 
 <template>
   <GMapMap :center="center" :zoom="7"
-    style="height : 100%; width : 100%; top : 0; left : 0; position : absolute; z-index : ;" :options="mapOptions">
+    style="height : 100%; width : 100%; top : 0; left : 0; position : absolute;" :options="mapOptions">
     <GMapMarker v-for="(marker, index) in markers" :key="index" :position="marker.position"
       :icon="'https://app.gocharge.tech/icons/gmap_pin_available.png'" @click="openModal(marker)">
     </GMapMarker>
