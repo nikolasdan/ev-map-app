@@ -75,18 +75,22 @@ onMounted(async () => {
   <div class="modal" v-if="modalOpen">
     <div class="modal-content">
       <span class="close" @click="closeModal">&times;</span>
+      <div class="modal-info-top">
       <h2 class="modal-info">{{ modalData.info }}</h2>
       <p class="modal-address">Address: {{ modalData.full_address }}</p>
       <p class="modal-max-power">Max Power: {{ modalData.max_power + " " + modalData.unit }}</p>
       <p class="modal-price">Price per KW: {{ modalData.price_per_kw + " " + modalData.currency }}</p>
       <p class="modal-status">Status: {{ modalData.status }}</p>
-
-      <p class="modal-charger-type">Type: {{ modalData.charger_type }}</p>
-      <p class="modal-power">Power: {{ modalData.power + " " + modalData.unit }} {{ modalData.is_fast }}</p>
+    </div>
+<div class="modal-info-bottom">
+      <p class="">Type: {{ modalData.charger_type }}</p>
+      <p class="">Power: {{ modalData.power + " " + modalData.unit }} {{ modalData.is_fast }}</p>
       <p v-if="modalData.charger_type_two" class="modal-charger-two">Type: {{ modalData.charger_type_two }}</p>
       <p v-if="modalData.power_two && modalData.unit_two && modalData.is_fast_two" class="modal-power-two">Power: {{
         modalData.power_two + " " + modalData.unit }} {{ modalData.is_fast_two }}</p>
-    </div>
+  </div>  
+  <button class="close-button" @click="closeModal">Close</button>
+  </div>
   </div>
 </template>
 
@@ -109,11 +113,6 @@ h2 {
   font-family: 'Inter', sans-serif;
 }
 
-p {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  text-align: center;
-}
 
 .modal-content {
   background-color: #333333a6;
@@ -122,7 +121,7 @@ p {
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 40%;
+  width: 30%;
   border-radius: 13px;
 }
 
@@ -132,11 +131,37 @@ p {
   }
 }
 
+.modal-info-top {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.modal-info-bottom {
+  text-align: left;
+  font-size: 19px;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+}
 .close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
+}
+
+.close-button {
+  background-color: #414141;
+  color: white;
+  padding: 16px 20px;
+  margin: 10px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 13px;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
 
 .close:hover,
