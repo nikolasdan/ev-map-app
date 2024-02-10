@@ -10,7 +10,8 @@ const markers = ref([]);
 const mapOptions = {
   styles: gmapTheme,
   streetViewControl: false,
-  mapTypeControl: false
+  mapTypeControl: false,
+  fullscreenControl: false,
 }
 
 const modalData = ref({});
